@@ -20,9 +20,16 @@ spec:
       containers:
       - name: simple-api-python
         image: tiagopgeremias/simple-api-python:0.1-alpine
+        volumeMounts:
+          - name: nfs-client-root
+            mountPath: /persistentvolumes
         ports:
         - containerPort: 8000
-
+      volumes:
+        - name: nfs-client-root
+          nfs:
+            server: 192.168.122.50
+            path: /dados
 ---
 kind: Service
 apiVersion: v1
